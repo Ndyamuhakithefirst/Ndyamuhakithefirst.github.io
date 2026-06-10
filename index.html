@@ -2012,7 +2012,8 @@ contactForm.addEventListener('submit', async (e) => {
         _template: 'table',
       }),
     });
-    if (!res.ok) throw new Error('Request failed');
+    const result = await res.json();
+    if (!res.ok || String(result.success) !== 'true') throw new Error(result.message || 'Request failed');
     btn.textContent = 'Brief Sent';
     formStatus.textContent = "Thanks — your project brief is in. We'll respond with a quote within a few hours.";
     formStatus.classList.add('show');
